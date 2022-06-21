@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SearchmainConfig(AppConfig):
+class FinderConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'searchMain'
+    name = 'finder'
