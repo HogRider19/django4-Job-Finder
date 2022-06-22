@@ -28,8 +28,14 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item {{ current }}">
-                        <a class="nav-link" href="">Домашняя страница</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Домашняя страница</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'analysis' %}">Анализ ранка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'searchvacancies' %}">Поиск вакансии</a>
                     </li>
 
                 </ul>
