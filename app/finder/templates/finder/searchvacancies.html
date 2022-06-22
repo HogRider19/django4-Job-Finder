@@ -12,6 +12,34 @@
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
     <br>
-    {{vacancies}}
 </div>
+
+{% for vacancy in vacancies %}
+<div class="card">
+    <h5 class="card-header">{{vacancy.name}}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{vacancy.name}}</h5>
+        <p class="card-text">
+            <b>Зарплата: </b>
+            {% if vacancy.salary.from and vacancy.salary.to %}
+            От {{vacancy.salary.from}} до {{vacancy.salary.to}}
+            {% else %}
+            {% if vacancy.salary.from %}
+            От {{vacancy.salary.from}}
+            {% else %}
+            {% if vacancy.salary.to %}
+            до {{vacancy.salary.to}}
+            {% else %}
+            -
+            {% endif %}
+            {% endif %}
+            {% endif %}
+        </p>
+        <p class="card-text"><b>Требования: </b>{{vacancy.snippet.requirement}}</p>
+        <p class="card-text"><b>Обязанность: </b>{{ vacancy.snippet.responsibility|safe }}</p>
+        <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+    </div>
+</div>
+{% endfor %}
+
 {% endblock %}
