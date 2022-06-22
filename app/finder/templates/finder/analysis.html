@@ -1,42 +1,69 @@
 {% extends 'finder/base.html' %}
 
 {% block content %}
+
+<br>
+
 <div class="container text-center">
     <h1>Анализ рынка</h1>
-    <br>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="username">Профессия</label>
-            <input type="text" name="profession" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Анализировать</button>
-    </form>
+</div>
+
+<br>
+
+<div class="card text-center p-3 mb-2 bg-primary text-white">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Профессия</label>
+                <input type="text" name="profession" class="form-control">
+            </div>
+
+            <div class="float-left">
+                <select class="form-select" aria-label="Default select example" name="countData">
+                    <option selected>Количество данных</option>
+                    <option value="30">Малое</option>
+                    <option value="100">Среднее</option>
+                    <option value="200">Максимальное</option>
+                </select>
+
+                <input type="checkbox" name="convert"> Конвертация валют
+
+            </div>
+
+
+            <br>
+            <br>
+
+            <button type="submit" class="btn btn-info">Анализировать</button>
+        </form>
+    </div>
 </div>
 
 <br>
 
 <div class="row">
     <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Всего проанализированно</h5>
-          <p class="card-text">{{info.count}}</p>
-          <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Всего проанализированно</h5>
+                <p class="card-text">{{info.count}}</p>
+                <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+            </div>
         </div>
-      </div>
     </div>
+
     <div class="col-sm-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Зарплата</h5>
-          <p class="card-text"><b>Минимальная: </b>{{info.min}}</p>
-          <p class="card-text"><b>Максимальная: </b>{{info.max}}</p>
-          <p class="card-text"><b>Средняя: </b>{{info.avg}}</p>
-          <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Зарплата</h5>
+                <p class="card-text"><b>Минимальная: </b>{{info.min}}</p>
+                <p class="card-text"><b>Максимальная: </b>{{info.max}}</p>
+                <p class="card-text"><b>Средняя: </b>{{info.avg}}</p>
+                <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 {% endblock %}

@@ -21,7 +21,7 @@ def analysis(request):
         }
 
         vacancies = []
-        for index in range(1,3):
+        for index in range(1,int(request.POST['countData'])):
             try:
                 params['page'] = str(index)
                 vacancies += list(map(
