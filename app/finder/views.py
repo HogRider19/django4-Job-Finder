@@ -1,7 +1,6 @@
-from audioop import avg
 from django.shortcuts import redirect, render
+from .utility import Analyzer
 import requests
-import json
 
 
 def home(request):
@@ -13,35 +12,14 @@ def analysis(request):
         return render(request, 'finder/analysis.html')
     else:
 
-        params = {
-            'text': request.POST['profession'],
-            'per_page':'100',
-            'page':'0',
-            'only_with_salary':True,
-        }
-
-        vacancies = []
-        for index in range(1,int(request.POST['countData'])):
-            try:
-                params['page'] = str(index)
-                vacancies += list(map(
-                    lambda x: x['salary'],
-                    requests.get('https://api.hh.ru/vacancies', params=params).json()['items']
-                ))
-            except KeyError:
-                break
-
-        count = len(vacancies)
-        salary_from = [i['from'] for i in vacancies if i['from'] != None]
-        salary_to = [i['to'] for i in vacancies if i['to'] != None]
-        max_salary = max(salary_from + salary_to)
-        salary_min = min(salary_from + salary_to)
-        salary_avg = sum(salary_from + salary_to)/count
+        analyzer = Analyzer(request)
+        analyzer.analysis(int(request.POST['countData']))
+        info = analyzer.get_all_info()
 
         return render(
             request,
             'finder/analysis.html',
-            {'info':{'count':count, 'max':max_salary, 'min':salary_min, 'avg':salary_avg}}
+            {'info': info}
         )
 
 
