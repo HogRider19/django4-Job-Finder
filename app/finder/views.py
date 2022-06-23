@@ -13,13 +13,15 @@ def analysis(request):
     else:
 
         analyzer = Analyzer(request)
-        analyzer.analysis(int(request.POST['countData']))
+        analyzer.analysis(countData=int(request.POST['countData']))
         info = analyzer.get_all_info()
+
+        straight_dis_point = analyzer.get_salary_plot()['straight']
 
         return render(
             request,
             'finder/analysis.html',
-            {'info': info}
+            {'info': info, 'straight_dis_point':straight_dis_point}
         )
 
 
