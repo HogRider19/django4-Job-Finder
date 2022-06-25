@@ -18,6 +18,8 @@ def analysis(request):
 
         straight_dis_point = analyzer.get_salary_plot()['straight']
 
+        print(straight_dis_point)
+
         return render(
             request,
             'finder/analysis.html',

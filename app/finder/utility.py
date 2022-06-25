@@ -59,9 +59,9 @@ class Analyzer:
         straight_dis = {x:y for x,y in enumerate(mean_salary)}
 
         straight_dis_point = ''
-        for i in mean_salary:
+        for i,mi in enumerate(mean_salary):
             try:
-                straight_dis_point += str(i) + ',' + str(mean_salary[i]) + ''
+                straight_dis_point += str(i) + ',' + str(int(mi)) + '\n'
             except:
                 break
         

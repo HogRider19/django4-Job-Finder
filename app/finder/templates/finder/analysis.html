@@ -1,30 +1,14 @@
 {% extends 'finder/base.html' %}
 
-<style>
-    .chart {
-        background: white;
-        width: 500px;
-        height: 100px;
-        border-left: 1px dotted #555;
-        border-bottom: 1px dotted #555;
-        padding: 20px 20px 20px 0;
-    }
-
-    body {
-        /* background: #ccc; */
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    body,
-    html {
-        height: 100%;
-    }
-</style>
 
 {% block content %}
+
+<style>
+    #canvas_plot{
+        margin: auto;
+        background: #ead9ce;
+    }
+</style>
 
 <br>
 
@@ -93,10 +77,65 @@
 <br>
 
 <div class="card text-center">
-    <svg viewBox="0 0 500 100" class="chart">
-        <polyline fill="none" stroke="#0074d9" stroke-width="2" points="{{straight_dis_point}}" />
+    <canvas id="canvas_plot" width="1000" height="500">
+        <script>
+            const canvasPlot = document.getElementById('canvas_plot');
+            const ctx = canvasPlot.getContext('2d');
 
-    </svg>
+            const canvasPlotWidth = canvasPlot.clientWidth;
+            const canvasPlotHeight = canvasPlot.clientHeight;
+
+            const scaleX = 20;
+            const scaleY = 20;
+
+            const xAxis = Math.round(50 / scaleX) * scaleX;
+            const yAxis = Math.round(450 / scaleY) * scaleY;
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#f5f0e8';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top'
+            ctx.font = '10px Arial';
+
+            for(let i = 0; i <= canvasPlotWidth; i = i + scaleX)
+            {
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvasPlotHeight);
+
+                ctx.fillText((i - xAxis) / scaleX, i, yAxis + 5)
+            }
+            for(let i = 0; i <= canvasPlotHeight; i = i + scaleY)
+            {
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvasPlotWidth, i);
+
+                ctx.fillText((yAxis - i) / scaleY, xAxis + 5, i);
+            }
+            ctx.stroke()
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#000000';
+            ctx.moveTo(xAxis,0);
+            ctx.lineTo(xAxis, canvasPlotHeight)
+            ctx.moveTo(0,yAxis);
+            ctx.lineTo(canvasPlotWidth, yAxis)
+            ctx.stroke()
+            ctx.closePath()
+
+            ctx.fillStyle = '#ff0000';
+            for(let i=0; i<= canvasPlotWidth; i++)
+            {
+                const x = (i - xAxis)/scaleX;
+                const y = x;
+                
+                ctx.fillRect(x * scaleX + xAxis, yAxis -scaleY * y, 4, 4);
+            }
+
+        </script>
+    </canvas>
 </div>
+
+<br><br><br><br><br>lwkve
 
 {% endblock %}
