@@ -30,7 +30,7 @@
             <div class="float-left">
                 <select class="form-select" aria-label="Default select example" name="countData">
                     <option selected>Количество данных</option>
-                    <option value="30">Малое</option>
+                    <option value="2">Малое</option>
                     <option value="100">Среднее</option>
                     <option value="200">Максимальное</option>
                 </select>
@@ -124,10 +124,13 @@
             ctx.closePath()
 
             ctx.fillStyle = '#ff0000';
+
+            var point = '{{mean_salary}}';
+
             for(let i=0; i<= canvasPlotWidth; i++)
             {
                 const x = (i - xAxis)/scaleX;
-                const y = x;
+                const y = Number(point[i]);
                 
                 ctx.fillRect(x * scaleX + xAxis, yAxis -scaleY * y, 4, 4);
             }

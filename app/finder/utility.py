@@ -47,28 +47,17 @@ class Analyzer:
     def get_salary_plot(self):
         mean_salary = []
         for i in self._salary_list:
-            if i['from'] is not None and i['to'] is not None:
-                mean_salary += [(i['from'] + i['to'])/2]
-            elif i['from'] is not None:
-                mean_salary += [i['from']]
-            elif i['to'] is not None:
-                mean_salary += [i['to']]
+            if i['from'] !=  None and i['to'] !=  None:
+                mean_salary += [int((i['from'] + i['to'])/2)]
+            elif i['from'] !=  None:
+                mean_salary += [int(i['from'])]
+            elif i['to'] != None:
+                mean_salary += [int(i['to'])]
 
         mean_salary = sorted(mean_salary)
-        
-        straight_dis = {x:y for x,y in enumerate(mean_salary)}
-
-        straight_dis_point = ''
-        for i,mi in enumerate(mean_salary):
-            try:
-                straight_dis_point += str(i) + ',' + str(int(mi)) + '\n'
-            except:
-                break
-        
-
 
         return {
-            'straight': straight_dis_point,
+            'straight': mean_salary,
         }
                 
 

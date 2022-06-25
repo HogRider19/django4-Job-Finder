@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from .utility import Analyzer
 import requests
+import json
 
 
 def home(request):
@@ -16,14 +17,15 @@ def analysis(request):
         analyzer.analysis(countData=int(request.POST['countData']))
         info = analyzer.get_all_info()
 
-        straight_dis_point = analyzer.get_salary_plot()['straight']
+        mean_salary = analyzer.get_salary_plot()['straight']
 
-        print(straight_dis_point)
+    
+        mean_salary_json = json.dumps(mean_salary)
 
         return render(
             request,
             'finder/analysis.html',
-            {'info': info, 'straight_dis_point':straight_dis_point}
+            {'info': info, 'mean_salary':mean_salary_json}
         )
 
 
